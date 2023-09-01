@@ -1,12 +1,20 @@
-import { BoxGeometry, DoubleSide, EdgesGeometry, Mesh, MeshBasicMaterial, MeshStandardMaterial } from 'three'
+import {
+  BoxGeometry,
+  DoubleSide,
+  EdgesGeometry,
+  Mesh,
+  MeshBasicMaterial,
+  MeshStandardMaterial,
+  TetrahedronGeometry,
+} from 'three'
 
-export class SquareSynth {
+export class TriangleSynth {
   public readonly mesh: Mesh
 
   private active = false
   private readonly activeMaterial = new MeshStandardMaterial({
-    color: 0xabe5fb,
-    // color: 0xffaa33,
+    // color: 0xabe5fb,
+    color: 0xffaa33,
 
     // emissive: 0xabe5fb,
     // emissiveIntensity: 0.0,
@@ -21,7 +29,7 @@ export class SquareSynth {
   })
 
   constructor(readonly x: number, readonly y: number) {
-    const geometry = new BoxGeometry()
+    const geometry = new TetrahedronGeometry()
     // const edgesGeometry = new EdgesGeometry(geometry)
     // const edgesMaterial = new MeshBasicMaterial({ color: 0x000000, opacity: , transparent: true })
     // const edgesMesh = new Mesh(edgesGeometry, edgesMaterial)
@@ -42,7 +50,8 @@ export class SquareSynth {
       this.mesh.rotation.y += 0.001
       this.mesh.position.y = this.y + Math.sin(this.mesh.rotation.x) * 2
     } else {
-      this.mesh.position.y = 0
+      this.mesh.position.set(-5, -5, -5)
+      this.mesh.position.y = -5
     }
   }
 }

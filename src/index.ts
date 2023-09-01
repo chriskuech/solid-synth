@@ -4,6 +4,7 @@ import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js'
 import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import { SquareSynth } from './SquareSynth'
+import { TriangleSynth } from './TriangleSynth'
 
 // Setup canvas, scene, camera, and renderer
 const scene = new THREE.Scene()
@@ -30,7 +31,7 @@ scene.add(new THREE.AxesHelper(10))
 
 // Add light sources
 ;(() => {
-  const pointLight = new THREE.PointLight(undefined, 100)
+  const pointLight = new THREE.PointLight(undefined, 1000)
   pointLight.position.set(3, 4, 10)
   scene.add(pointLight)
 
@@ -40,9 +41,13 @@ scene.add(new THREE.AxesHelper(10))
 
 // Add bodies
 ;(() => {
-  const squareSynth = new SquareSynth()
+  const squareSynth = new SquareSynth(-5, -5)
   scene.add(squareSynth.mesh)
   bodies.push(squareSynth)
+
+  const triangleSynth = new TriangleSynth(-5, -4)
+  scene.add(triangleSynth.mesh)
+  bodies.push(triangleSynth)
   // squareSynth.mesh.dispatchEvent()
 })()
 
