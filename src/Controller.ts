@@ -5,7 +5,7 @@ export class Controller {
   constructor(private readonly scene: Scene) {}
 
   addSquareSync() {
-    new SquareSynth(this.scene)
+    // new SquareSynth()
   }
 
   clear() {}
