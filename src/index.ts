@@ -5,6 +5,10 @@ import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPa
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import { SquareSynth } from './SquareSynth'
 import { TriangleSynth } from './TriangleSynth'
+import { SawSynth } from './SawSynth'
+import { SineSynth } from './SineSynth'
+import * as TWEEN from '@tweenjs/tween.js'
+import * as Tone from 'tone'
 
 // Setup canvas, scene, camera, and renderer
 const scene = new THREE.Scene()
@@ -41,13 +45,21 @@ scene.add(new THREE.AxesHelper(10))
 
 // Add bodies
 ;(() => {
-  const squareSynth = new SquareSynth(-5, -5)
+  const squareSynth = new SquareSynth({ x: -5, y: -5 })
   scene.add(squareSynth.mesh)
   bodies.push(squareSynth)
 
-  const triangleSynth = new TriangleSynth(-5, -4)
+  const triangleSynth = new TriangleSynth({ x: -5, y: -3 })
   scene.add(triangleSynth.mesh)
   bodies.push(triangleSynth)
+
+  const sineSynth = new SineSynth({ x: -5, y: -1 })
+  scene.add(sineSynth.mesh)
+  bodies.push(sineSynth)
+
+  const sawSynth = new SawSynth({ x: -5, y: 1 })
+  scene.add(sawSynth.mesh)
+  bodies.push(sawSynth)
   // squareSynth.mesh.dispatchEvent()
 })()
 
@@ -95,11 +107,23 @@ window.addEventListener('click', onMouseClick, false)
   )
 })()
 
+// Add white noise
+;(() => {
+  // Tone.start()
+  new Tone.Noise({
+    type: 'brown', // Can be 'white', 'pink', or 'brown'
+    volume: -20, // Volume in decibels, adjust as needed
+  })
+    .toDestination()
+    .start()
+})()
+
 // Animation loop
 const animate = () => {
   requestAnimationFrame(animate)
 
   bodies.forEach((body) => body.update())
+  TWEEN.update()
   controls.update()
   composer.render()
 }

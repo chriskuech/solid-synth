@@ -2,6 +2,9 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
+  devServer: {
+    port: 42069,
+  },
   entry: './src/index.ts',
   output: {
     filename: 'bundle.js',
